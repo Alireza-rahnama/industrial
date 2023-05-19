@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.rutter</groupId>
+  <artifactId>benchmarking_simulation</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+</project>
+
+<dependencies>
+  <!-- gRPC core -->
+  <dependency>
+    <groupId>io.grpc</groupId>
+    <artifactId>grpc-core</artifactId>
+    <version>1.41.0</version>
+  </dependency>
+
+  <!-- gRPC protobuf -->
+  <dependency>
+    <groupId>io.grpc</groupId>
+    <artifactId>grpc-protobuf</artifactId>
+    <version>1.41.0</version>
+  </dependency>
+
+  <!-- gRPC stub -->
+  <dependency>
+    <groupId>io.grpc</groupId>
+    <artifactId>grpc-stub</artifactId>
+    <version>1.41.0</version>
+  </dependency>
+</dependencies>
+
+<build>
+  <plugins>
+    <!-- gRPC protobuf plugin -->
+    <plugin>
+      <groupId>org.xolstice.maven.plugins</groupId>
+      <artifactId>protobuf-maven-plugin</artifactId>
+      <version>0.6.1</version>
+      <configuration>
+        <protocArtifact>com.google.protobuf:protoc:3.17.3:exe:${os.detected.classifier}</protocArtifact>
+        <pluginId>grpc-java</pluginId>
+        <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.41.0:exe:${os.detected.classifier}</pluginArtifact>
+      </configuration>
+      <executions>
+        <execution>
+          <goals>
+            <goal>compile</goal>
+            <goal>compile-custom</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-compiler-plugin</artifactId>
+  <version>3.8.1</version>
+  <configuration>
+    <compilerArgs>
+      <arg>-Xlint:all</arg>
+      <arg>-Werror</arg>
+    </compilerArgs>
+  </configuration>
+</plugin>
+
