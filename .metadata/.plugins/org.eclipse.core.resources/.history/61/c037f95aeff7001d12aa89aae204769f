@@ -7,6 +7,7 @@ public class Data {
 	private String source;
 	
 	public Data(String type, long id, String source) {
+		super();
 		this.type = type;
 		this.id = id;
 		this.source = source;
