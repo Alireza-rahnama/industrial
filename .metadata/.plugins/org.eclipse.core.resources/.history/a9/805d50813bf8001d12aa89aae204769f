@@ -99,6 +99,7 @@ public class ConfigurationPage extends JFrame {
 				for(JCheckBox checkBox: radarCatalog) {
 					if(checkBox.isSelected()){
 						selectedRadars.add(checkBox);
+//						radarStationAttributePairs.put(null, getName())
 					    System.out.println(checkBox.getText());
 					}
 				}

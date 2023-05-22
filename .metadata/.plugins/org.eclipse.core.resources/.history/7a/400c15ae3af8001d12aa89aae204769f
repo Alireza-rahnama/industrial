@@ -84,26 +84,23 @@ public class ConfigurationPage extends JFrame {
 		}
 		
 		JButton submitButton = new JButton("Submit");
-		submitButton.addActionListener(saveConfiguration());
-		add(submitButton);
-
-		pack();
-		setVisible(true);
-	}
-
-	public ActionListener saveConfiguration() {
-		return new ActionListener() {
+		submitButton.addActionListener(new ActionListener() {
 		
 			public void actionPerformed(ActionEvent e) {
 			    // Handle the button click event here
 				for(JCheckBox checkBox: radarCatalog) {
 					if(checkBox.isSelected()){
 						selectedRadars.add(checkBox);
+//						radarStationAttributePairs.put(null, getName())
 					    System.out.println(checkBox.getText());
 					}
 				}
 			}
-		};
+		});
+		add(submitButton);
+
+		pack();
+		setVisible(true);
 	}
 
 	public static void main(String[] args) {
