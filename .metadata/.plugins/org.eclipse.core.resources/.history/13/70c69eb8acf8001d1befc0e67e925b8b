@@ -32,7 +32,7 @@ public class ConfigurationPage extends JFrame {
 		setTitle("Radar Configuration");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout(0, 3));
-		Dimension windowSize = new Dimension(400, 150);
+		Dimension windowSize = new Dimension(700, 300);
 		setPreferredSize(windowSize);
 
 		radarQuantityLabel = new JLabel("Select Radar Type");
