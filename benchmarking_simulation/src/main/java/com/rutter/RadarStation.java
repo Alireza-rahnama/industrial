@@ -1,12 +1,16 @@
 package com.rutter;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class RadarStation {
+	
+	private static final AtomicInteger uniqueIdGenerator = new AtomicInteger();
 	private int uniqeId;
 	private String type;
 	
-	public RadarStation(int uniqeId, String type) {
+	public RadarStation(String type) {
 		super();
-		this.uniqeId = uniqeId;
+		this.uniqeId = uniqueIdGenerator.getAndIncrement();
 		this.type = type;
 	}
 
