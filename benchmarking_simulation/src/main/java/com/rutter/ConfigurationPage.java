@@ -7,23 +7,44 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 public class ConfigurationPage extends JFrame {
+	
+	private static final long serialVersionUID = 1L;
+	private JPanel radarCatalogPanel = new JPanel();
+	private JPanel consumerClientCatalogPanel = new JPanel();
+	private JPanel simulationPanel = new JPanel();
 
 	private JLabel radarQuantityLabel;
 	private JLabel radarTypeLabel;
-	private JLabel dataSimulationPeriodLabel;
+	private JLabel dataTransmitionPeriodLabel;
+	
+	private JLabel consumerClientQuantityLabel;
+	private JLabel consumerClientTypeLabel;
+	
+	private JLabel simualtionPeriodLabel;
 
 	private JLabel[] radarLabels;
 	private JCheckBox[] radarCheckBoxes;
 	private JTextField[] radarFields;
 	private JTextField[] dataSimulationtionPeriodField;
+	private JTextField simulationtionPeriodField;
+
+	
+	private JLabel[] consumerClientLabels;
+	private JCheckBox[] consumerClientCheckBoxes;
+	private JTextField[] consumerClientFields;
+	
 
 	private static ArrayList<RadarStation> radarStationCatalog = new ArrayList<RadarStation>();
-	private static ArrayList<String> types = new ArrayList<String>();
-	private static ArrayList<Integer> uniqueIds = new ArrayList<Integer>();
+	private static ArrayList<String> radarTypes = new ArrayList<String>();
+	private static ArrayList<Integer> radarUniqueIds = new ArrayList<Integer>();
 	private static ArrayList<JCheckBox> radarCatalog = new ArrayList<JCheckBox>();
 	private static ArrayList<JCheckBox> selectedRadars = new ArrayList<JCheckBox>();
-
-	private static HashMap<Integer, String> radarStationAttributePairs;
+	
+	private static ArrayList<ConsumerClient> consumerClientCatalog = new ArrayList<ConsumerClient>();
+	private static ArrayList<String> consumerClientTypes = new ArrayList<String>();
+	private static ArrayList<Long> consumerClientIds = new ArrayList<Long>();
+	private static ArrayList<JCheckBox> consumerCatalog = new ArrayList<JCheckBox>();
+	private static ArrayList<JCheckBox> selectedConsumers = new ArrayList<JCheckBox>();
 
 	private static long configId;
 
@@ -31,32 +52,49 @@ public class ConfigurationPage extends JFrame {
 
 		setTitle("Radar Configuration");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new GridLayout(0, 3));
-		Dimension windowSize = new Dimension(400, 150);
+	    // Set the JFrame layout
+	    setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		add(radarCatalogPanel);
+		add(consumerClientCatalogPanel);
+		add(simulationPanel);
+		
+		Dimension windowSize = new Dimension(500, 350);
 		setPreferredSize(windowSize);
+		
+		radarCatalogPanel.setLayout(new GridLayout(0, 3));
+
 
 		radarQuantityLabel = new JLabel("Select Radar Type");
-		add(radarQuantityLabel);
+		radarCatalogPanel.add(radarQuantityLabel);
 
 		radarQuantityLabel = new JLabel("Enter Radar Quantities");
-		add(radarQuantityLabel);
+		radarCatalogPanel.add(radarQuantityLabel);
 
-		dataSimulationPeriodLabel = new JLabel("Enter simulation period in minutes");
-		add(dataSimulationPeriodLabel);
+		dataTransmitionPeriodLabel = new JLabel("Enter Data Transmition Period");
+		radarCatalogPanel.add(dataTransmitionPeriodLabel);
+		
+		simulationPanel.setLayout(new GridLayout(0, 1));
 
-		types.add("Radar AA");
-		types.add("Radar BB");
-		types.add("Radar CC");
+		simualtionPeriodLabel = new JLabel("Enter Simulation Length in Minutes");
+		simulationPanel.add(simualtionPeriodLabel);
+		
+		simulationtionPeriodField = new JTextField();
+		simulationPanel.add(simulationtionPeriodField);
+			
 
-		uniqueIds.add(1);
-		uniqueIds.add(2);
-		uniqueIds.add(3);
+		radarTypes.add("Radar AA");
+		radarTypes.add("Radar BB");
+		radarTypes.add("Radar CC");
 
-		for (int i = 0; i < types.size(); i++) {
-			String type = types.get(i);
-			Integer uniqueId = uniqueIds.get(i);
+		radarUniqueIds.add(1);
+		radarUniqueIds.add(2);
+		radarUniqueIds.add(3);
 
-			radarStationCatalog.add(new RadarStation(uniqueId, type));
+		for (int i = 0; i < radarTypes.size(); i++) {
+			String type = radarTypes.get(i);
+			Integer uniqueId = radarUniqueIds.get(i);
+
+			radarStationCatalog.add(new RadarStation(type));
 		}
 
 		int radarCatalogSize = radarStationCatalog.size();
@@ -70,20 +108,71 @@ public class ConfigurationPage extends JFrame {
 		for (int i = 0; i < radarStationCatalog.size(); i++) {
 			String checkBoxLabel = (radarStationCatalog.get(i).getType() + ":").toString();
 			radarCheckBoxes[i] = new JCheckBox(checkBoxLabel);
-			add(radarCheckBoxes[i]);
+			radarCatalogPanel.add(radarCheckBoxes[i]);
 			radarCatalog.add(radarCheckBoxes[i]);
 
 			radarFields[i] = new JTextField();
-			add(radarFields[i]);
+			radarCatalogPanel.add(radarFields[i]);
 
 			dataSimulationtionPeriodField[i] = new JTextField();
-			add(dataSimulationtionPeriodField[i]);
+			radarCatalogPanel.add(dataSimulationtionPeriodField[i]);
 		}
 
-		JButton submitButton = new JButton("Submit");
-		submitButton.addActionListener(saveConfiguration());
-		add(submitButton);
+//		JButton submitButton = new JButton("Submit");
+//		submitButton.addActionListener(saveConfiguration());
+//		radarCatalogPanel.add(submitButton);
 
+		
+		//consumer client panel
+		consumerClientCatalogPanel.setLayout(new GridLayout(0, 2));
+		
+		consumerClientTypeLabel = new JLabel("Select Consumer Client Type");
+		consumerClientCatalogPanel.add(consumerClientTypeLabel);
+
+		consumerClientQuantityLabel = new JLabel("Enter Consumer Client Quantities");
+		consumerClientCatalogPanel.add(consumerClientQuantityLabel);
+
+
+		consumerClientTypes.add("Sea View");
+		consumerClientTypes.add("Mobile App");
+
+		consumerClientIds.add(1L);
+		consumerClientIds.add(2L);
+
+		for (int i = 0; i < consumerClientTypes.size(); i++) {
+			String type = consumerClientTypes.get(i);
+			Long id = consumerClientIds.get(i);
+
+			consumerClientCatalog.add(new ConsumerClient(type));
+		}
+
+		int consumerClientCatalogSize = consumerClientCatalog.size();
+
+		consumerClientLabels = new JLabel[consumerClientCatalogSize];
+		consumerClientFields = new JTextField[consumerClientCatalogSize];
+		consumerClientCheckBoxes = new JCheckBox[consumerClientCatalogSize];
+
+		// Add the checkbox to the frame
+		for (int i = 0; i < consumerClientCatalog.size(); i++) {
+		    String checkBoxLabel = (consumerClientCatalog.get(i).getType() + ":").toString();
+		    consumerClientCheckBoxes[i] = new JCheckBox(checkBoxLabel);
+		    consumerClientCatalogPanel.add(consumerClientCheckBoxes[i]);
+		    consumerCatalog.add(consumerClientCheckBoxes[i]);
+
+		    consumerClientFields[i] = new JTextField();
+		    consumerClientCatalogPanel.add(consumerClientFields[i]);
+		}
+		
+		
+
+		JButton saveButton = new JButton("Save");
+		saveButton.addActionListener(saveConfiguration());
+		consumerClientCatalogPanel.add(saveButton);
+		
+		simulationPanel.add(saveButton);
+		add(simulationPanel);
+
+		
 		pack();
 		setVisible(true);
 	}
@@ -99,17 +188,11 @@ public class ConfigurationPage extends JFrame {
 					if (checkBox.isSelected()) {
 						selectedRadars.add(checkBox);
 						System.out.println(checkBox.getText());
+
 					}
 				}
 			}
 		};
 	}
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new ConfigurationPage();
-			}
-		});
-	}
 }

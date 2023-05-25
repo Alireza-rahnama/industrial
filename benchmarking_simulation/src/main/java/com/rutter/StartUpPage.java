@@ -8,13 +8,13 @@ import java.awt.event.ActionListener;
 public class StartUpPage extends JFrame {
 
 	protected static final JButton configureSimulation = new JButton("Configure Simulation");
-	protected static final JButton addRadarStation = new JButton("Add Radar Station");
-	protected static final JButton addClient = new JButton("Add New Client");
+	protected static final JButton radarStationCatalog = new JButton("Radar Catalog");
+	protected static final JButton consumerClientCatalog = new JButton("Consumer Client Catalog");
 	protected static final JButton viewReports = new JButton("View Reports");
-	protected static final JButton runSimulation = new JButton("View Reports");
+	protected static final JButton newSimulation = new JButton("New Simulation");
 
 	private JMenuBar menuBar = new JMenuBar();
-	private Dimension windowSize = new Dimension(750, 200);
+	private Dimension windowSize = new Dimension(800, 300);
 
 	public StartUpPage(String title) throws HeadlessException {
 		super(title);
@@ -24,13 +24,14 @@ public class StartUpPage extends JFrame {
 		setJMenuBar(menuBar);
 		
 		configureSimulation.addActionListener(openConfigPage());
-
+		radarStationCatalog.addActionListener(openRadarCatalog());
+		consumerClientCatalog.addActionListener(openConsumerClientCatalog());
 
 		menuBar.add(configureSimulation);
-		menuBar.add(addRadarStation);
-		menuBar.add(addClient);
+		menuBar.add(radarStationCatalog);
+		menuBar.add(consumerClientCatalog);
 		menuBar.add(viewReports);
-		menuBar.add(runSimulation);
+		menuBar.add(newSimulation);
 
 		pack();
 		setVisible(true);
@@ -46,6 +47,26 @@ public class StartUpPage extends JFrame {
 				}
 			};
 		}
+	
+	private ActionListener openRadarCatalog() {
+		return new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+			    // Handle the button click event here
+				new RadarCatalog();
+				}
+			};
+		}
+	
+	private ActionListener openConsumerClientCatalog() {
+		return new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+			    // Handle the button click event here
+				new ConsumerClientCatalog();
+				}
+			};
+	}
 	
 
 	public static void main(String[] args) {
