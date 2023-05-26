@@ -1,5 +1,14 @@
 Manifest-Version: 1.0
-Built-By: alirezarahnama
-Build-Jdk: 17.0.6
+Build-Jdk-Spec: 17
+Class-Path: lib/grpc-core-1.41.0.jar lib/grpc-api-1.41.0.jar lib/grpc-co
+ ntext-1.41.0.jar lib/gson-2.8.6.jar lib/annotations-4.1.1.4.jar lib/ani
+ mal-sniffer-annotations-1.19.jar lib/error_prone_annotations-2.9.0.jar 
+ lib/guava-30.1-android.jar lib/failureaccess-1.0.1.jar lib/listenablefu
+ ture-9999.0-empty-to-avoid-conflict-with-guava.jar lib/checker-compat-q
+ ual-2.5.5.jar lib/j2objc-annotations-1.3.jar lib/perfmark-api-0.23.0.ja
+ r lib/grpc-protobuf-1.41.0.jar lib/jsr305-3.0.2.jar lib/protobuf-java-3
+ .17.2.jar lib/proto-google-common-protos-2.0.1.jar lib/grpc-protobuf-li
+ te-1.41.0.jar lib/grpc-stub-1.41.0.jar
+Main-Class: com.rutter.StartUpPage
 Created-By: Maven Integration for Eclipse
 
