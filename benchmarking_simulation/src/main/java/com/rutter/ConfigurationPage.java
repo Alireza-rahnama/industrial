@@ -31,22 +31,13 @@ public class ConfigurationPage extends JFrame {
 	private JTextField simulationtionPeriodField;
 
 	
-	private JLabel[] consumerClientLabels;
 	private JCheckBox[] consumerClientCheckBoxes;
 	private JTextField[] consumerClientFields;
 	
-
-//	private static ArrayList<RadarStation> radarsCatalog = new ArrayList<RadarStation>();
-	private ArrayList<String> radarTypes = new ArrayList<String>();
-	private ArrayList<Integer> radarUniqueIds = new ArrayList<Integer>();
 	private ArrayList<JCheckBox> radarCatalog = new ArrayList<JCheckBox>();
 	private ArrayList<JCheckBox> selectedRadars = new ArrayList<JCheckBox>();
-	
-	private ArrayList<ConsumerClient> consumerClientCatalog = new ArrayList<ConsumerClient>();
-	private ArrayList<String> consumerClientTypes = new ArrayList<String>();
-	private ArrayList<Long> consumerClientIds = new ArrayList<Long>();
 	private ArrayList<JCheckBox> consumerCatalog = new ArrayList<JCheckBox>();
-	private ArrayList<JCheckBox> selectedConsumers = new ArrayList<JCheckBox>();
+	
 	private RadarCatalog radars;
 	private ConsumerClientCatalog consumersCatalog;
 	private ArrayList<RadarStation> radarsCatalog;
@@ -64,7 +55,7 @@ public class ConfigurationPage extends JFrame {
 		add(consumerClientCatalogPanel);
 		add(simulationPanel);
 		
-		Dimension windowSize = new Dimension(500, 350);
+		Dimension windowSize = new Dimension(650, 350);
 		setPreferredSize(windowSize);
 		
 		radarCatalogPanel.setLayout(new GridLayout(0, 3));
@@ -76,7 +67,7 @@ public class ConfigurationPage extends JFrame {
 		radarQuantityLabel = new JLabel("Enter Radar Quantities");
 		radarCatalogPanel.add(radarQuantityLabel);
 
-		dataTransmitionPeriodLabel = new JLabel("Enter Data Transmition Period");
+		dataTransmitionPeriodLabel = new JLabel("Enter Data Transmition Interval");
 		radarCatalogPanel.add(dataTransmitionPeriodLabel);
 		
 		simulationPanel.setLayout(new GridLayout(0, 1));
@@ -124,12 +115,6 @@ public class ConfigurationPage extends JFrame {
 		consumerClientQuantityLabel = new JLabel("Enter Consumer Client Quantities");
 		consumerClientCatalogPanel.add(consumerClientQuantityLabel);
 
-
-//		consumerClientTypes.add("Sea View");
-//		consumerClientTypes.add("Mobile App");
-//
-//		consumerClientIds.add(1L);
-//		consumerClientIds.add(2L);
 		consumersCatalog = new ConsumerClientCatalog();
 		consumersCatalog.loadConsumerClientCatalog();
 		consumerClientsCatalog = consumersCatalog.getConsumerClientCatalog();
@@ -137,7 +122,7 @@ public class ConfigurationPage extends JFrame {
 
 		int consumerClientCatalogSize = consumerClientsCatalog.size();
 
-		consumerClientLabels = new JLabel[consumerClientCatalogSize];
+//		consumerClientLabels = new JLabel[consumerClientCatalogSize];
 		consumerClientFields = new JTextField[consumerClientCatalogSize];
 		consumerClientCheckBoxes = new JCheckBox[consumerClientCatalogSize];
 
