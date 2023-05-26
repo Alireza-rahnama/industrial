@@ -1,2 +1,23 @@
 1684684127033	Delete element
 1684716643085	Extract method 'saveConfiguration'
+1685018214623	Delete element
+1685044347884	Rename field 'types'
+1685044532331	Rename field 'uniqueIds'
+1685047714918	Rename field 'dataSimulationPeriodLabel'
+1685049223791	Rename field 'addRadarStation'
+1685049249587	Rename field 'addClient'
+1685049356615	Rename field 'runSimulation'
+1685049521313	Delete element
+1685050472048	Rename field 'newSimulation'
+1685050493830	Rename field 'RadarStationCatalog'
+1685050548156	Rename field 'simulationCatalog'
+1685053032630	Rename field 'panel'
+1685057386721	Rename field 'radarTypeA'
+1685057423958	Rename field 'radarCatalog'
+1685058048057	Rename field 'newRadarPanel'
+1685058155070	Rename local variable 'radarType'
+1685058207189	Rename local variable 'radar'
+1685058306658	Rename method 'loadRadarCatalog'
+1685058342549	Rename method 'saveRadarCatalog'
+1685058402798	Rename local variable 'newRadar'
+1685060042785	Rename field 'radarStationCatalog'

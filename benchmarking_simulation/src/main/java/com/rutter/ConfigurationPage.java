@@ -114,11 +114,6 @@ public class ConfigurationPage extends JFrame {
 			dataSimulationtionPeriodField[i] = new JTextField();
 			radarCatalogPanel.add(dataSimulationtionPeriodField[i]);
 		}
-
-//		JButton submitButton = new JButton("Submit");
-//		submitButton.addActionListener(saveConfiguration());
-//		radarCatalogPanel.add(submitButton);
-
 		
 		//consumer client panel
 		consumerClientCatalogPanel.setLayout(new GridLayout(0, 2));
@@ -139,12 +134,6 @@ public class ConfigurationPage extends JFrame {
 		consumersCatalog.loadConsumerClientCatalog();
 		consumerClientsCatalog = consumersCatalog.getConsumerClientCatalog();
 
-//		for (int i = 0; i < consumerClientsCatalog.size(); i++) {
-//			String type = consumerClientTypes.get(i);
-//			Long id = consumerClientIds.get(i);
-//
-//			consumerClientCatalog.add(new ConsumerClient(type));
-//		}
 
 		int consumerClientCatalogSize = consumerClientsCatalog.size();
 
