@@ -26,9 +26,11 @@ public class RadarCatalog extends JFrame{
 	private RadarStation radarTypeA;
 	private JPanel catalogPanel;
 	private JPanel newRadarPanel;
+	
 	private ArrayList<RadarStation> radarCatalog;
 	
 	public RadarCatalog() {
+		setTitle("Radar Catalog");
 		setLayout(new GridLayout(0,1));
 
 		radarCatalog = new ArrayList<RadarStation>();
@@ -50,6 +52,7 @@ public class RadarCatalog extends JFrame{
 		JTextField newRadarTextField = new JTextField();
 		newRadarPanel.add(newRadarTextField);
 		JButton newRadarButton = new JButton("Add New Radar");
+		
 		newRadarButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
