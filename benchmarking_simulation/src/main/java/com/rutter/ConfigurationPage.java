@@ -1,6 +1,8 @@
 package com.rutter;
 
 import javax.swing.*;
+import com.rutter.ConsumerClientCatalog;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,22 +36,26 @@ public class ConfigurationPage extends JFrame {
 	private JTextField[] consumerClientFields;
 	
 
-	private static ArrayList<RadarStation> radarStationCatalog = new ArrayList<RadarStation>();
-	private static ArrayList<String> radarTypes = new ArrayList<String>();
-	private static ArrayList<Integer> radarUniqueIds = new ArrayList<Integer>();
-	private static ArrayList<JCheckBox> radarCatalog = new ArrayList<JCheckBox>();
-	private static ArrayList<JCheckBox> selectedRadars = new ArrayList<JCheckBox>();
+//	private static ArrayList<RadarStation> radarsCatalog = new ArrayList<RadarStation>();
+	private ArrayList<String> radarTypes = new ArrayList<String>();
+	private ArrayList<Integer> radarUniqueIds = new ArrayList<Integer>();
+	private ArrayList<JCheckBox> radarCatalog = new ArrayList<JCheckBox>();
+	private ArrayList<JCheckBox> selectedRadars = new ArrayList<JCheckBox>();
 	
-	private static ArrayList<ConsumerClient> consumerClientCatalog = new ArrayList<ConsumerClient>();
-	private static ArrayList<String> consumerClientTypes = new ArrayList<String>();
-	private static ArrayList<Long> consumerClientIds = new ArrayList<Long>();
-	private static ArrayList<JCheckBox> consumerCatalog = new ArrayList<JCheckBox>();
-	private static ArrayList<JCheckBox> selectedConsumers = new ArrayList<JCheckBox>();
+	private ArrayList<ConsumerClient> consumerClientCatalog = new ArrayList<ConsumerClient>();
+	private ArrayList<String> consumerClientTypes = new ArrayList<String>();
+	private ArrayList<Long> consumerClientIds = new ArrayList<Long>();
+	private ArrayList<JCheckBox> consumerCatalog = new ArrayList<JCheckBox>();
+	private ArrayList<JCheckBox> selectedConsumers = new ArrayList<JCheckBox>();
+	private RadarCatalog radars;
+	private ConsumerClientCatalog consumersCatalog;
+	private ArrayList<RadarStation> radarsCatalog;
+	private ArrayList<ConsumerClient> consumerClientsCatalog;
 
 	private static long configId;
 
 	public ConfigurationPage() {
-
+//		radarCatalog.clear();
 		setTitle("Radar Configuration");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    // Set the JFrame layout
@@ -81,23 +87,14 @@ public class ConfigurationPage extends JFrame {
 		simulationtionPeriodField = new JTextField();
 		simulationPanel.add(simulationtionPeriodField);
 			
+		radars = new RadarCatalog();
 
-		radarTypes.add("Radar AA");
-		radarTypes.add("Radar BB");
-		radarTypes.add("Radar CC");
+		radars.loadRadarCatalog();
+		radarsCatalog = radars.getRadarCatalog();
+		
+		
+		int radarCatalogSize = radarsCatalog.size();
 
-		radarUniqueIds.add(1);
-		radarUniqueIds.add(2);
-		radarUniqueIds.add(3);
-
-		for (int i = 0; i < radarTypes.size(); i++) {
-			String type = radarTypes.get(i);
-			Integer uniqueId = radarUniqueIds.get(i);
-
-			radarStationCatalog.add(new RadarStation(type));
-		}
-
-		int radarCatalogSize = radarStationCatalog.size();
 
 		radarLabels = new JLabel[radarCatalogSize];
 		radarFields = new JTextField[radarCatalogSize];
@@ -105,8 +102,8 @@ public class ConfigurationPage extends JFrame {
 		radarCheckBoxes = new JCheckBox[radarCatalogSize];
 
 		// Add the checkbox to the frame
-		for (int i = 0; i < radarStationCatalog.size(); i++) {
-			String checkBoxLabel = (radarStationCatalog.get(i).getType() + ":").toString();
+		for (int i = 0; i < radarsCatalog.size(); i++) {
+			String checkBoxLabel = (radarsCatalog.get(i).getType() + ":").toString();
 			radarCheckBoxes[i] = new JCheckBox(checkBoxLabel);
 			radarCatalogPanel.add(radarCheckBoxes[i]);
 			radarCatalog.add(radarCheckBoxes[i]);
@@ -133,28 +130,31 @@ public class ConfigurationPage extends JFrame {
 		consumerClientCatalogPanel.add(consumerClientQuantityLabel);
 
 
-		consumerClientTypes.add("Sea View");
-		consumerClientTypes.add("Mobile App");
+//		consumerClientTypes.add("Sea View");
+//		consumerClientTypes.add("Mobile App");
+//
+//		consumerClientIds.add(1L);
+//		consumerClientIds.add(2L);
+		consumersCatalog = new ConsumerClientCatalog();
+		consumersCatalog.loadConsumerClientCatalog();
+		consumerClientsCatalog = consumersCatalog.getConsumerClientCatalog();
 
-		consumerClientIds.add(1L);
-		consumerClientIds.add(2L);
+//		for (int i = 0; i < consumerClientsCatalog.size(); i++) {
+//			String type = consumerClientTypes.get(i);
+//			Long id = consumerClientIds.get(i);
+//
+//			consumerClientCatalog.add(new ConsumerClient(type));
+//		}
 
-		for (int i = 0; i < consumerClientTypes.size(); i++) {
-			String type = consumerClientTypes.get(i);
-			Long id = consumerClientIds.get(i);
-
-			consumerClientCatalog.add(new ConsumerClient(type));
-		}
-
-		int consumerClientCatalogSize = consumerClientCatalog.size();
+		int consumerClientCatalogSize = consumerClientsCatalog.size();
 
 		consumerClientLabels = new JLabel[consumerClientCatalogSize];
 		consumerClientFields = new JTextField[consumerClientCatalogSize];
 		consumerClientCheckBoxes = new JCheckBox[consumerClientCatalogSize];
 
 		// Add the checkbox to the frame
-		for (int i = 0; i < consumerClientCatalog.size(); i++) {
-		    String checkBoxLabel = (consumerClientCatalog.get(i).getType() + ":").toString();
+		for (int i = 0; i < consumerClientsCatalog.size(); i++) {
+		    String checkBoxLabel = (consumerClientsCatalog.get(i).getType() + ":").toString();
 		    consumerClientCheckBoxes[i] = new JCheckBox(checkBoxLabel);
 		    consumerClientCatalogPanel.add(consumerClientCheckBoxes[i]);
 		    consumerCatalog.add(consumerClientCheckBoxes[i]);
