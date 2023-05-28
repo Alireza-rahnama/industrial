@@ -44,21 +44,16 @@ public class ConfigurationPage extends JFrame {
 	private ArrayList<RadarStation> radarList = new ArrayList<RadarStation>();
 	private ArrayList<ConsumerClient> consumerList = new ArrayList<ConsumerClient>();
 
-//	private RadarCatalog radars;
-//	private ConsumerClientCatalog consumersCatalog;
 	private ArrayList<RadarStation> radarStations;
-	private ArrayList<ConsumerClient> consumerClientsCatalog;
 	private ArrayList<String> selectedConsumers = new ArrayList<String>();
 	private ArrayList<Integer> selectedConsumerClientIndexList = new ArrayList<Integer>();
 
-	private HashMap<RadarStation, Integer> selectedRadarCountMap = new HashMap<>();;
 	private ArrayList<HashMap<RadarStation, Integer>> radarsSimulationConfigurationCatalog = new ArrayList<HashMap<RadarStation, Integer>>();
 	private ArrayList<HashMap<ConsumerClient, Integer>> consumerClientSimulationConfigurationCatalog = new ArrayList<HashMap<ConsumerClient, Integer>>();
 
 	private static long configId;
 
 	public ConfigurationPage() {
-//		radarCatalog.clear();
 		setTitle("Radar Configuration");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Set the JFrame layout
@@ -94,8 +89,6 @@ public class ConfigurationPage extends JFrame {
 		int radarCatalogSize = radarStations.size();
 
 		ArrayList<ConsumerClient> consumerClients = loadConsumerClients();
-//		consumerCatalog = consumerClients;
-		int consumerClientsCatalogSize = consumerClients.size();
 
 		radarLabels = new JLabel[radarCatalogSize];
 		radarQuantityFields = new JTextField[radarCatalogSize];
@@ -277,8 +270,13 @@ public class ConfigurationPage extends JFrame {
 	}
 	
 	public int getSimulationPeriod() {
-		return Integer.parseInt(simulationtionPeriodField.getText());
+	    try {
+	        return Integer.parseInt(simulationtionPeriodField.getText());
+	    } catch (NumberFormatException e) {
+	        // Handle the case where the input is not a valid integer
+	        // You can display an error message, provide a default value, or take appropriate action
+	        return 0; // Default value or any other appropriate value
+	    }
 	}
 	
-
 }
