@@ -13,6 +13,11 @@ public class ConsumerClient {
 
 	}
 
+	@Override
+	public String toString() {
+		return "ConsumerClient [id=" + id + ", type=" + type + "]";
+	}
+
 	public long getId() {
 		return id;
 	}

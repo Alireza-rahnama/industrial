@@ -5,13 +5,15 @@
 		<item key="DIALOG_Y_ORIGIN" value="270"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="Radar"/>
+		<item key="selection" value="radarsCatalog"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="radarsCatalog"/>
+			<item value="radarCatalog"/>
 			<item value="radar"/>
 			<item value="updateCatalogPanel1"/>
 			<item value="main"/>
