@@ -34,6 +34,7 @@ public class ConfigurationPage extends JFrame {
 	private JTextField[] dataTransmitionIntervalFields;
 	private JTextField simulationtionPeriodField;
 
+<<<<<<< HEAD
 	private JCheckBox[] consumerClientCheckBoxes;
 	private JTextField[] consumerClientQuantityFields;
 
@@ -47,6 +48,19 @@ public class ConfigurationPage extends JFrame {
 //	private RadarCatalog radars;
 //	private ConsumerClientCatalog consumersCatalog;
 	private ArrayList<RadarStation> radarStations;
+=======
+	
+	private JCheckBox[] consumerClientCheckBoxes;
+	private JTextField[] consumerClientFields;
+	
+	private ArrayList<JCheckBox> radarCatalog = new ArrayList<JCheckBox>();
+	private ArrayList<JCheckBox> selectedRadars = new ArrayList<JCheckBox>();
+	private ArrayList<JCheckBox> consumerCatalog = new ArrayList<JCheckBox>();
+	
+	private RadarCatalog radars;
+	private ConsumerClientCatalog consumersCatalog;
+	private ArrayList<RadarStation> radarsCatalog;
+>>>>>>> 82d31632fe1a3a0b13187c1feb8567ac1ae89679
 	private ArrayList<ConsumerClient> consumerClientsCatalog;
 	private ArrayList<String> selectedConsumers = new ArrayList<String>();
 	private ArrayList<Integer> selectedConsumerClientIndexList = new ArrayList<Integer>();
@@ -66,6 +80,14 @@ public class ConfigurationPage extends JFrame {
 		add(radarCatalogPanel);
 		add(consumerClientCatalogPanel);
 		add(simulationPanel);
+<<<<<<< HEAD
+=======
+		
+		Dimension windowSize = new Dimension(650, 350);
+		setPreferredSize(windowSize);
+		
+		radarCatalogPanel.setLayout(new GridLayout(0, 3));
+>>>>>>> 82d31632fe1a3a0b13187c1feb8567ac1ae89679
 
 		Dimension windowSize = new Dimension(650, 350);
 		setPreferredSize(windowSize);
@@ -125,12 +147,23 @@ public class ConfigurationPage extends JFrame {
 		consumerClientQuantityLabel = new JLabel("Enter Consumer Client Quantities");
 		consumerClientCatalogPanel.add(consumerClientQuantityLabel);
 
+<<<<<<< HEAD
 		ArrayList<ConsumerClient> consumerClientsCatalog = loadConsumerClients();
+=======
+		consumersCatalog = new ConsumerClientCatalog();
+		consumersCatalog.loadConsumerClientCatalog();
+		consumerClientsCatalog = consumersCatalog.getConsumerClientCatalog();
+
+>>>>>>> 82d31632fe1a3a0b13187c1feb8567ac1ae89679
 
 		int consumerClientCatalogSize = consumerClientsCatalog.size();
 
 //		consumerClientLabels = new JLabel[consumerClientCatalogSize];
+<<<<<<< HEAD
 		consumerClientQuantityFields = new JTextField[consumerClientCatalogSize];
+=======
+		consumerClientFields = new JTextField[consumerClientCatalogSize];
+>>>>>>> 82d31632fe1a3a0b13187c1feb8567ac1ae89679
 		consumerClientCheckBoxes = new JCheckBox[consumerClientCatalogSize];
 
 		// Add the checkbox to the frame
