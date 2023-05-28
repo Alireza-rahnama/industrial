@@ -4,9 +4,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class RadarStation {
 	
+	@Override
+	public String toString() {
+		return "RadarStation [uniqeId=" + uniqeId + ", type=" + type + ", dataTransmitionInterval="
+				+ dataTransmitionInterval + "]";
+	}
+
 	private static final AtomicInteger uniqueIdGenerator = new AtomicInteger();
 	private int uniqeId;
 	private String type;
+	private int dataTransmitionInterval;
 	
 	public RadarStation(String type) {
 		super();
@@ -28,6 +35,10 @@ public class RadarStation {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public void setDataTransmitionInterval(int dataTransmitionInterval) {
+		this.dataTransmitionInterval = dataTransmitionInterval;
 	}
 	
 

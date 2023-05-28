@@ -1,3 +1,4 @@
+commit_dialog_history_messages=<?xml version\="1.0" encoding\="UTF-8"?>\n<messages>\n<message>update</message>\n<message>reverted</message>\n<message>resized the window and modified .gitignore</message>\n<message>added radar and client catalogs and cleaned up the code</message>\n<message>removed comments</message>\n<message>added scalability</message>\n<message>Added much of the functionality required in the gui</message>\n</messages>
 eclipse.preferences.version=1
 repositories_view_filters=<?xml version\="1.0" encoding\="UTF-8"?>\n<FilterCache/>
 resourcehistory_graph_split=500,500

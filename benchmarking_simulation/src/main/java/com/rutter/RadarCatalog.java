@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 public class RadarCatalog extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	private static final String RADAR_CATALOG_FILE = "radarCatalog.txt";
+	public static final String RADAR_CATALOG_FILE = "radarCatalog.txt";
 
 	private RadarStation radarTypeA;
 	private JPanel catalogPanel;

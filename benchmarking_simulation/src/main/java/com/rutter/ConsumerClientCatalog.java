@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 public class ConsumerClientCatalog extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	private static final String CONSUMER_CATALOG_FILE = "consumerClientCatalog.txt";
+	public static final String CONSUMER_CATALOG_FILE = "consumerClientCatalog.txt";
 
 	private ConsumerClient seaView;
 	private JPanel catalogPanel;
