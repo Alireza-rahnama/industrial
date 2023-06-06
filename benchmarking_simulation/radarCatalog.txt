@@ -2,3 +2,4 @@ Type A
 Type B
 Type D
 Type E
+Type F

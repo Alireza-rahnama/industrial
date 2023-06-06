@@ -1,16 +1,24 @@
 package com.rutter;
 
+import java.util.ArrayList;
+
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import java.io.FileWriter;
+import java.io.IOException;
+
 import static com.rutter.RadarCatalog.RADAR_CATALOG_FILE;
 import static com.rutter.ConsumerClientCatalog.CONSUMER_CATALOG_FILE;
 
 import javax.swing.*;
-import com.rutter.ConsumerClientCatalog;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.*;
+import java.io.PrintWriter;
 
 public class ConfigurationPage extends JFrame {
 
@@ -50,19 +58,26 @@ public class ConfigurationPage extends JFrame {
 
 	private ArrayList<HashMap<RadarStation, Integer>> radarsSimulationConfigurationCatalog = new ArrayList<HashMap<RadarStation, Integer>>();
 	private ArrayList<HashMap<ConsumerClient, Integer>> consumerClientSimulationConfigurationCatalog = new ArrayList<HashMap<ConsumerClient, Integer>>();
+	private ArrayList<SimulationConfiguration> simulationConfigurationCatalog;
+
+	private StartUpPage startUpPage;
 
 	private static long configId;
 
-	public ConfigurationPage() {
+	private SimulationConfiguration simulationConfiguration;
+	public static final String SIMULATION_RADARS_CONFIGURATION= "simulationRadarsCatalog.txt";
+	public static final String SIMULATION_CONSUMERS_CONFIGURATION= "simulationConsumersCatalog.txt";
+
+
+	public ConfigurationPage(StartUpPage startUpPage) {
 		setTitle("Radar Configuration");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// Set the JFrame layout
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		add(radarCatalogPanel);
 		add(consumerClientCatalogPanel);
 		add(simulationPanel);
 
-		Dimension windowSize = new Dimension(650, 350);
+		Dimension windowSize = new Dimension(800, 600);
 		setPreferredSize(windowSize);
 
 		radarCatalogPanel.setLayout(new GridLayout(0, 3));
@@ -88,16 +103,13 @@ public class ConfigurationPage extends JFrame {
 		radarStations = radars;
 		int radarCatalogSize = radarStations.size();
 
-		ArrayList<ConsumerClient> consumerClients = loadConsumerClients();
-
 		radarLabels = new JLabel[radarCatalogSize];
 		radarQuantityFields = new JTextField[radarCatalogSize];
 		dataTransmitionIntervalFields = new JTextField[radarCatalogSize];
 		radarCheckBoxes = new JCheckBox[radarCatalogSize];
 
-		// Add the checkbox to the frame
 		for (int i = 0; i < radarStations.size(); i++) {
-			String checkBoxLabel = (radarStations.get(i).getType() + ":").toString();
+			String checkBoxLabel = (radarStations.get(i).getType()).toString();
 			radarCheckBoxes[i] = new JCheckBox(checkBoxLabel);
 			radarCatalogPanel.add(radarCheckBoxes[i]);
 			radarCheckboxes.add(radarCheckBoxes[i]);
@@ -109,7 +121,6 @@ public class ConfigurationPage extends JFrame {
 			radarCatalogPanel.add(dataTransmitionIntervalFields[i]);
 		}
 
-		// consumer client panel
 		consumerClientCatalogPanel.setLayout(new GridLayout(0, 2));
 
 		consumerClientTypeLabel = new JLabel("Select Consumer Client Type");
@@ -122,13 +133,11 @@ public class ConfigurationPage extends JFrame {
 
 		int consumerClientCatalogSize = consumerClientsCatalog.size();
 
-//		consumerClientLabels = new JLabel[consumerClientCatalogSize];
 		consumerClientQuantityFields = new JTextField[consumerClientCatalogSize];
 		consumerClientCheckBoxes = new JCheckBox[consumerClientCatalogSize];
 
-		// Add the checkbox to the frame
 		for (int i = 0; i < consumerClientsCatalog.size(); i++) {
-			String checkBoxLabel = (consumerClientsCatalog.get(i).getType() + ":").toString();
+			String checkBoxLabel = (consumerClientsCatalog.get(i).getType()).toString();
 			consumerClientCheckBoxes[i] = new JCheckBox(checkBoxLabel);
 			consumerClientCatalogPanel.add(consumerClientCheckBoxes[i]);
 			consumerCheckboxes.add(consumerClientCheckBoxes[i]);
@@ -142,38 +151,81 @@ public class ConfigurationPage extends JFrame {
 		consumerClientCatalogPanel.add(saveButton);
 
 		simulationPanel.add(saveButton);
-		add(simulationPanel);
 
-		pack();
-		setVisible(true);
+		JButton repaintButton = new JButton("Return to Start Up Page");
+		repaintButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				startUpPage.setVisible(true);
+			}
+		});
+
+		simulationPanel.add(repaintButton);
+		add(simulationPanel);
 	}
 
-	// here should implement two scenraios: 1.save new settings
-	// 2.if such simulation has run before: return results
 	public ActionListener saveConfiguration() {
 		return new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-				// Handle the button click event here
 				getSelectedRadarsTypes();
 				getRadarsPropertiesForSimulationCatalog();
-				
+
 				getSelectedConsumerClientTypes();
 				getConsumerClientsPropertiesForSimulationCatalog();
-				
+
 				for (HashMap<RadarStation, Integer> map : radarsSimulationConfigurationCatalog) {
-					for (RadarStation radar : map.keySet()) {
-						System.out.println(radar.toString());
+					for (Entry<RadarStation, Integer> entry : map.entrySet()) {
+
+						String radarType = entry.getKey().getType();
+						int RadarDataTransmitionInterval = entry.getKey().getDataTransmitionInterval();
+						Integer radarQuantity = entry.getValue();
+
+						System.out.println("Radar Type: " + radarType + ", Radar's Data Transmition Interval: "
+								+ RadarDataTransmitionInterval + "minutes, Radar Quantity: " + radarQuantity);
+
+						try (PrintWriter out = new PrintWriter(
+								new FileWriter(SIMULATION_RADARS_CONFIGURATION, true))) {
+
+							out.println(radarType);
+							out.println(RadarDataTransmitionInterval);
+							out.println(radarQuantity);
+
+						} catch (IOException err) {
+							err.printStackTrace();
+						}
 					}
 				}
-				
+
 				for (HashMap<ConsumerClient, Integer> map : consumerClientSimulationConfigurationCatalog) {
-					for (ConsumerClient consumerClient : map.keySet()) {
-						System.out.println(consumerClient.toString());
+
+					for (Entry<ConsumerClient, Integer> entry : map.entrySet()) {
+
+						String clientType = entry.getKey().getType();
+						Integer clientQuantity = entry.getValue();
+
+						System.out.println("Client Type: " + clientType + ", Client Quantity: " + clientQuantity);
+
+						try (PrintWriter out = new PrintWriter(
+								new FileWriter(SIMULATION_CONSUMERS_CONFIGURATION, true))) {
+
+							out.println(clientType);
+							out.println(clientQuantity);
+
+						} catch (IOException er) {
+							er.printStackTrace();
+						}
 					}
 				}
-				
-				System.out.println(getSimulationPeriod()+" minutes");
+
+				System.out.println(getSimulationPeriod() + " minutes");
+
+//				simulationConfiguration = new SimulationConfiguration(getSimulationPeriod(),
+//						radarsSimulationConfigurationCatalog, consumerClientSimulationConfigurationCatalog);
+//
+//				saveToSimulationCatalog(simulationConfiguration);
+//
+//				System.out.println(simulationConfiguration.toString());
 
 			}
 		};
@@ -220,27 +272,17 @@ public class ConfigurationPage extends JFrame {
 
 	public void getRadarsPropertiesForSimulationCatalog() {
 		for (int i = 0; i < selectedRadars.size(); i++) {
-
 			RadarStation radar = new RadarStation(selectedRadars.get(i));
-
 			Integer transmitionInterval = Integer
 					.parseInt(dataTransmitionIntervalFields[selectedRadarsIndexList.get(i)].getText());
-
 			radar.setDataTransmitionInterval(transmitionInterval);
-
-			int quantity = Integer.parseInt(radarQuantityFields[selectedRadarsIndexList
-
-					.get(i)].getText());
-
+			int quantity = Integer.parseInt(radarQuantityFields[selectedRadarsIndexList.get(i)].getText());
 			HashMap<RadarStation, Integer> selectedRadarQuantityMap = new HashMap<>();
-
 			selectedRadarQuantityMap.put(radar, quantity);
-
 			radarsSimulationConfigurationCatalog.add(selectedRadarQuantityMap);
-
 		}
 	}
-	
+
 	public void getSelectedConsumerClientTypes() {
 		for (JCheckBox checkBox : consumerCheckboxes) {
 			if (checkBox.isSelected()) {
@@ -249,34 +291,53 @@ public class ConfigurationPage extends JFrame {
 			}
 		}
 	}
-	
+
 	public void getConsumerClientsPropertiesForSimulationCatalog() {
 		for (int i = 0; i < selectedConsumers.size(); i++) {
-
 			ConsumerClient consumerClient = new ConsumerClient(selectedConsumers.get(i));
-
-			
-			int quantity = Integer.parseInt(consumerClientQuantityFields[selectedConsumerClientIndexList
-
-					.get(i)].getText());
-
+			int quantity = Integer
+					.parseInt(consumerClientQuantityFields[selectedConsumerClientIndexList.get(i)].getText());
 			HashMap<ConsumerClient, Integer> selectedConsumerQuantityMap = new HashMap<>();
-
 			selectedConsumerQuantityMap.put(consumerClient, quantity);
-
 			consumerClientSimulationConfigurationCatalog.add(selectedConsumerQuantityMap);
-
 		}
 	}
-	
+
 	public int getSimulationPeriod() {
-	    try {
-	        return Integer.parseInt(simulationtionPeriodField.getText());
-	    } catch (NumberFormatException e) {
-	        // Handle the case where the input is not a valid integer
-	        // You can display an error message, provide a default value, or take appropriate action
-	        return 0; // Default value or any other appropriate value
-	    }
+		try {
+			return Integer.parseInt(simulationtionPeriodField.getText());
+		} catch (NumberFormatException e) {
+			return 0;
+		}
 	}
-	
+
+	public void saveToSimulationCatalog(SimulationConfiguration simulationConfiguration) {
+		try (PrintWriter out = new PrintWriter(new FileWriter(SIMULATION_RADARS_CONFIGURATION, true))) {
+			out.println(simulationConfiguration.getSimulationPeriod());
+			out.println(simulationConfiguration.getRadarsSimulationConfigurationCatalog());
+			out.println(simulationConfiguration.getConsumerClientSimulationConfigurationCatalog());
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+//    public void loadSimulationCatalog() {
+//        simulationConfigurationCatalog.clear();
+//        File file = new File(SIMULATION_RADARS_CONFIGURATION);
+//        try (Scanner scanner = new Scanner(file)) {
+//            while (scanner.hasNextLine()) {
+//            	String RadarType = scanner.nextLine();
+//                int simulationPeriod = Integer.parseInt(scanner.nextLine());
+//                int radarQuantity = Integer.parseInt(scanner.nextLine());
+//                
+//                for(int i=0; i<radarQuantity; i++) {
+//                	
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            // If the file does not exist, do nothing.
+//        }
+//    }
+
 }

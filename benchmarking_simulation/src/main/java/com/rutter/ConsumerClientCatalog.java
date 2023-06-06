@@ -1,5 +1,4 @@
 package com.rutter;
-
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,95 +16,103 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+public class ConsumerClientCatalog extends JFrame {
 
-public class ConsumerClientCatalog extends JFrame{
-	
-	private static final long serialVersionUID = 1L;
-	public static final String CONSUMER_CATALOG_FILE = "consumerClientCatalog.txt";
+    private static final long serialVersionUID = 1L;
+    public static final String CONSUMER_CATALOG_FILE = "consumerClientCatalog.txt";
 
-	private ConsumerClient seaView;
-	private JPanel catalogPanel;
-	private JPanel newConsumerPanel;
-	private static ArrayList<ConsumerClient> consumerClientCatalog;
-	
-	public ConsumerClientCatalog() {
-		setLayout(new GridLayout(0,1));
+    private ConsumerClient seaView;
+    private JPanel catalogPanel;
+    private JPanel newConsumerPanel;
+    private ArrayList<ConsumerClient> consumerClientCatalog;
+    private StartUpPage startUpPage;
 
-		consumerClientCatalog = new ArrayList<ConsumerClient>();
-		loadConsumerClientCatalog();
+    public ConsumerClientCatalog(StartUpPage startUpPage) {
+        this.startUpPage = startUpPage;
+        setLayout(new GridLayout(0, 1));
 
-		seaView = new ConsumerClient("Sea View");
-		consumerClientCatalog.add(seaView);
+        consumerClientCatalog = new ArrayList<ConsumerClient>();
+        loadConsumerClientCatalog();
 
-		catalogPanel = new JPanel();
-		catalogPanel.setLayout(new GridLayout(0,1));
-		updateCatalogPanel();
-		
-		add(catalogPanel);
-		
-		newConsumerPanel = new JPanel();
-		newConsumerPanel.setLayout(new GridLayout(0, 1));
-		JLabel newRadarLabel = new JLabel("Define a New Client Type");
-		newConsumerPanel.add(newRadarLabel);
-		JTextField newRadarTextField = new JTextField();
-		newConsumerPanel.add(newRadarTextField);
-		JButton newRadarButton = new JButton("Add New Consumer Client");
-		newRadarButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String newRadarType = newRadarTextField.getText();
-				ConsumerClient newConsumerClient = new ConsumerClient(newRadarType);
-				consumerClientCatalog.add(newConsumerClient);
-				saveConsumerClientCatalog(newConsumerClient);
-				newRadarTextField.setText("");
-				updateCatalogPanel();
-			}
-		});
+        seaView = new ConsumerClient("Sea View");
+        consumerClientCatalog.add(seaView);
 
-		newConsumerPanel.add(newRadarButton);
+        catalogPanel = new JPanel();
+        catalogPanel.setLayout(new GridLayout(0, 1));
+        updateCatalogPanel();
 
-		add(newConsumerPanel);
+        add(catalogPanel);
 
-		setSize(300,400);
-		setVisible(true);
-	}
+        newConsumerPanel = new JPanel();
+        newConsumerPanel.setLayout(new GridLayout(0, 1));
+        JLabel newConsumerLabel = new JLabel("Define a New Client Type");
+        newConsumerPanel.add(newConsumerLabel);
+        JTextField newConsumerTextField = new JTextField();
+        newConsumerPanel.add(newConsumerTextField);
+        JButton newConsumerButton = new JButton("Add New Consumer Client");
+        newConsumerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String newConsumerType = newConsumerTextField.getText();
+                ConsumerClient newConsumerClient = new ConsumerClient(newConsumerType);
+                consumerClientCatalog.add(newConsumerClient);
+                saveConsumerClientCatalog(newConsumerClient);
+                newConsumerTextField.setText("");
+                updateCatalogPanel();
+            }
+        });
 
-	private void updateCatalogPanel() {
-		catalogPanel.removeAll(); // remove old labels
+        newConsumerPanel.add(newConsumerButton);
 
-		for(ConsumerClient client: consumerClientCatalog) {
-			String newRadarType = client.getType();
+        JButton returnButton = new JButton("Return to Start Up Page");
+        returnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close the ConsumerClientCatalog JFrame
+                startUpPage.setVisible(true); // Show the StartUpPage JFrame
+            }
+        });
 
-			JLabel label = new JLabel(newRadarType);
-			catalogPanel.add(label);
-		}
+        newConsumerPanel.add(returnButton);
+        add(newConsumerPanel);
+    }
 
-		catalogPanel.revalidate(); // tell panel to layout components again
-		catalogPanel.repaint(); // repaint the panel to see changes
-	}
-	
-	public void loadConsumerClientCatalog() {
-		consumerClientCatalog.clear();
-		File file = new File(CONSUMER_CATALOG_FILE);
-		try (Scanner scanner = new Scanner(file)) {
-			while (scanner.hasNextLine()) {
-				String consumerClientType = scanner.nextLine();
-				consumerClientCatalog.add(new ConsumerClient(consumerClientType));
-			}
-		} catch (FileNotFoundException e) {
-			// File does not exist yet, do nothing.
-		}
-	}
+    private void updateCatalogPanel() {
+        catalogPanel.removeAll();
 
-	private void saveConsumerClientCatalog(ConsumerClient newConsumerClient) {
-		try (PrintWriter out = new PrintWriter(new FileWriter(CONSUMER_CATALOG_FILE, true))) {
-			out.println(newConsumerClient.getType());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public ArrayList<ConsumerClient> getConsumerClientCatalog(){
-		return consumerClientCatalog;
-	}
+        for (ConsumerClient client : consumerClientCatalog) {
+            String newConsumerType = client.getType();
+
+            JLabel label = new JLabel(newConsumerType);
+            catalogPanel.add(label);
+        }
+
+        catalogPanel.revalidate();
+        catalogPanel.repaint();
+    }
+
+    public void loadConsumerClientCatalog() {
+        consumerClientCatalog.clear();
+        File file = new File(CONSUMER_CATALOG_FILE);
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String consumerClientType = scanner.nextLine();
+                consumerClientCatalog.add(new ConsumerClient(consumerClientType));
+            }
+        } catch (FileNotFoundException e) {
+            // File does not exist yet, do nothing.
+        }
+    }
+
+    private void saveConsumerClientCatalog(ConsumerClient newConsumerClient) {
+        try (PrintWriter out = new PrintWriter(new FileWriter(CONSUMER_CATALOG_FILE, true))) {
+            out.println(newConsumerClient.getType());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<ConsumerClient> getConsumerClientCatalog() {
+        return consumerClientCatalog;
+    }
 }
