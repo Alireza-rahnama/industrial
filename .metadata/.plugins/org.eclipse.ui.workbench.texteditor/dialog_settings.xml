@@ -5,32 +5,40 @@
 		<item key="DIALOG_Y_ORIGIN" value="270"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="radarsCatalog"/>
+		<item key="selection" value="getConsumerClientsPropertiesForSimulationCatalog"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="radarsCatalog"/>
+			<item value="getConsumerClientsPropertiesForSimulationCatalog"/>
+			<item value="radarStations"/>
 			<item value="radarCatalog"/>
+			<item value="consumerCatalog"/>
+			<item value="RadarCatalog"/>
+			<item value="radarFields"/>
 			<item value="radar"/>
+			<item value="quantity"/>
+			<item value="dataSimulationtionPeriodField"/>
+			<item value="dataTra"/>
+			<item value="radarsCatalog"/>
 			<item value="updateCatalogPanel1"/>
 			<item value="main"/>
 			<item value="manifest"/>
 			<item value="boolean"/>
-			<item value="addAction"/>
-			<item value="addAll"/>
-			<item value="add"/>
 		</list>
 		<list key="replacehistory">
+			<item value="radarQuantityFields"/>
+			<item value="dataTransmitionIntervalFields"/>
+			<item value="dataTrans"/>
 			<item value="consumerClient"/>
 			<item value=""/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1064"/>
-		<item key="DIALOG_Y_ORIGIN" value="159"/>
+		<item key="DIALOG_X_ORIGIN" value="1144"/>
+		<item key="DIALOG_Y_ORIGIN" value="238"/>
 		<item key="DIALOG_WIDTH" value="336"/>
 		<item key="DIALOG_HEIGHT" value="402"/>
 		<item key="DIALOG_FONT_NAME" value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont"/>

@@ -1,14 +1,13 @@
 package com.rutter;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.UUID;
 
 public class ConsumerClient {
-	private static final AtomicLong uniqueIdGenerator = new AtomicLong();
-	private long id;
+	private final UUID id;
 	private String type;
 	
 	public ConsumerClient(String type) {
-		this.id = uniqueIdGenerator.getAndIncrement();
+		this.id = UUID.randomUUID();
 		this.type = type;
 
 	}
@@ -18,13 +17,10 @@ public class ConsumerClient {
 		return "ConsumerClient [id=" + id + ", type=" + type + "]";
 	}
 
-	public long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getType() {
 		return type;

@@ -14,7 +14,12 @@ public class StartUpPage extends JFrame {
 	protected static final JButton newSimulation = new JButton("New Simulation");
 
 	private JMenuBar menuBar = new JMenuBar();
-	private Dimension windowSize = new Dimension(800, 300);
+	private RadarCatalog radarCatalog;
+	private ConsumerClientCatalog clientCatalog;
+	private ConfigurationPage configPage;
+	private Dimension windowSize = new Dimension(800, 600);
+
+	private RunSimulation runSimulation;
 
 	public StartUpPage(String title) throws HeadlessException {
 		super(title);
@@ -22,11 +27,16 @@ public class StartUpPage extends JFrame {
 		setPreferredSize(windowSize);
 
 		setJMenuBar(menuBar);
-		
+
+		radarCatalog = new RadarCatalog(this);
+		clientCatalog = new ConsumerClientCatalog(this);
+		configPage = new ConfigurationPage(this);
+
 		configureSimulation.addActionListener(openConfigPage());
 		radarStationCatalog.addActionListener(openRadarCatalog());
 		consumerClientCatalog.addActionListener(openConsumerClientCatalog());
-
+		newSimulation.addActionListener(openNewSimulation());
+		
 		menuBar.add(configureSimulation);
 		menuBar.add(radarStationCatalog);
 		menuBar.add(consumerClientCatalog);
@@ -40,37 +50,61 @@ public class StartUpPage extends JFrame {
 
 	private ActionListener openConfigPage() {
 		return new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-			    // Handle the button click event here
-				new ConfigurationPage();
-				}
-			};
-		}
-	
+				// Handle the button click event here
+				setVisible(false);
+				configPage.setSize(800, 600);
+				configPage.setVisible(true);
+				repaintWindow();
+			}
+		};
+	}
+
 	private ActionListener openRadarCatalog() {
 		return new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-			    // Handle the button click event here
-				new RadarCatalog();
-				}
-			};
-		}
-	
+				// Handle the button click event here
+				setVisible(false);
+				radarCatalog.setSize(800, 600);
+				radarCatalog.setVisible(true);
+				repaintWindow();
+
+			}
+		};
+	}
+
 	private ActionListener openConsumerClientCatalog() {
 		return new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-			    // Handle the button click event here
-				new ConsumerClientCatalog();
-				}
-			};
+				// Handle the button click event here
+				setVisible(false);
+				clientCatalog.setSize(800, 600);
+				clientCatalog.setVisible(true);
+				repaintWindow();
+			}
+		};
 	}
-	
+
+	private ActionListener openNewSimulation() {
+		return new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				runSimulation = new RunSimulation();
+			}
+		};
+	}
 
 	public static void main(String[] args) {
 		new StartUpPage("Performance Benchmarking");
+
+	}
+
+	public void repaintWindow() {
+		getContentPane().repaint();
 
 	}
 

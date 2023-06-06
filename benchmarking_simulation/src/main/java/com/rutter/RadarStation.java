@@ -1,6 +1,6 @@
 package com.rutter;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.UUID;
 
 public class RadarStation {
 	
@@ -10,23 +10,18 @@ public class RadarStation {
 				+ dataTransmitionInterval + "]";
 	}
 
-	private static final AtomicInteger uniqueIdGenerator = new AtomicInteger();
-	private int uniqeId;
+	private final UUID uniqeId;
 	private String type;
 	private int dataTransmitionInterval;
 	
 	public RadarStation(String type) {
 		super();
-		this.uniqeId = uniqueIdGenerator.getAndIncrement();
+		this.uniqeId = UUID.randomUUID();
 		this.type = type;
 	}
 
-	public int getUniqeId() {
+	public UUID getUniqeId() {
 		return uniqeId;
-	}
-
-	public void setUniqeId(int uniqeId) {
-		this.uniqeId = uniqeId;
 	}
 
 	public String getType() {
@@ -39,6 +34,10 @@ public class RadarStation {
 	
 	public void setDataTransmitionInterval(int dataTransmitionInterval) {
 		this.dataTransmitionInterval = dataTransmitionInterval;
+	}
+	
+	public int getDataTransmitionInterval() {
+		return dataTransmitionInterval;
 	}
 	
 
