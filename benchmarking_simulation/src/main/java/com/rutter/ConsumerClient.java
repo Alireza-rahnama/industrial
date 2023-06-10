@@ -3,11 +3,11 @@ package com.rutter;
 import java.util.UUID;
 
 public class ConsumerClient {
-	private final UUID id;
+	private final String id;
 	private String type;
 	
 	public ConsumerClient(String type) {
-		this.id = UUID.randomUUID();
+		this.id = UUID.randomUUID().toString();
 		this.type = type;
 
 	}
@@ -17,7 +17,7 @@ public class ConsumerClient {
 		return "ConsumerClient [id=" + id + ", type=" + type + "]";
 	}
 
-	public UUID getId() {
+	public String getId() {
 		return id;
 	}
 

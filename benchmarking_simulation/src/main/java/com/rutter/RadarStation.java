@@ -10,17 +10,17 @@ public class RadarStation {
 				+ dataTransmitionInterval + "]";
 	}
 
-	private final UUID uniqeId;
+	private final String uniqeId;
 	private String type;
 	private int dataTransmitionInterval;
 	
 	public RadarStation(String type) {
 		super();
-		this.uniqeId = UUID.randomUUID();
+		this.uniqeId = UUID.randomUUID().toString();
 		this.type = type;
 	}
 
-	public UUID getUniqeId() {
+	public String getUniqeId() {
 		return uniqeId;
 	}
 
