@@ -88,7 +88,7 @@ public class ConfigurationPage extends JFrame {
 		radarQuantityLabel = new JLabel("Enter Radar Quantities");
 		radarCatalogPanel.add(radarQuantityLabel);
 
-		dataTransmitionPeriodLabel = new JLabel("Enter Data Transmition Interval");
+		dataTransmitionPeriodLabel = new JLabel("Enter Data Transmition Interval in Seconds");
 		radarCatalogPanel.add(dataTransmitionPeriodLabel);
 
 		simulationPanel.setLayout(new GridLayout(0, 1));

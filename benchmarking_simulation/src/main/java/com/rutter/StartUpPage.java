@@ -1,6 +1,7 @@
 package com.rutter;
 
 import javax.swing.*;
+import javax.swing.ImageIcon;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +21,9 @@ public class StartUpPage extends JFrame {
 	private Dimension windowSize = new Dimension(800, 600);
 
 	private RunSimulation runSimulation;
+	
+	private String backgroundImageFile = "src/main/images/start.png";
+	private JLabel backgroundLabel;
 
 	public StartUpPage(String title) throws HeadlessException {
 		super(title);
@@ -27,7 +31,7 @@ public class StartUpPage extends JFrame {
 		setPreferredSize(windowSize);
 
 		setJMenuBar(menuBar);
-
+		
 		radarCatalog = new RadarCatalog(this);
 		clientCatalog = new ConsumerClientCatalog(this);
 		configPage = new ConfigurationPage(this);
@@ -42,6 +46,11 @@ public class StartUpPage extends JFrame {
 		menuBar.add(consumerClientCatalog);
 		menuBar.add(viewReports);
 		menuBar.add(newSimulation);
+        
+		backgroundLabel = new JLabel(new ImageIcon(backgroundImageFile));
+		
+		getContentPane().setLayout(new BorderLayout());
+		getContentPane().add(backgroundLabel, BorderLayout.CENTER);
 
 		pack();
 		setVisible(true);
@@ -92,7 +101,14 @@ public class StartUpPage extends JFrame {
 		return new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-
+				
+		        // Display an alert with a custom message and title
+		        String message = "Creating Client...\n" + "Channel created successfully!\n"+		
+		        "S6 node ID: 68da9c61-bd18-4135-b360-6050c2bc58e2\n"+ "Connection established!";
+		        
+		        String title = "Successful Unary Call";
+		        
+		        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
 				runSimulation = new RunSimulation();
 			}
 		};
