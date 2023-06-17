@@ -104,7 +104,7 @@ public class StartUpPage extends JFrame {
 				
 		        // Display an alert with a custom message and title
 		        String message = "Creating Client...\n" + "Channel created successfully!\n"+		
-		        "S6 node ID: 68da9c61-bd18-4135-b360-6050c2bc58e2\n"+ "Connection established!";
+		        "S6 node ID: XXXX_YYYY_ZZZ\n"+ "Connection established!";
 		        
 		        String title = "Successful Unary Call";
 		        
