@@ -1,6 +1,10 @@
 package com.rutter;
 
+import com.producerClient.ConsumerClient;
 import javax.swing.*;
+
+import com.producerClient.PngImageMessageProvider;
+import com.producerClient.ProducerClient;
 import javax.swing.ImageIcon;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,6 +24,7 @@ public class StartUpPage extends JFrame {
 	private ConfigurationPage configPage;
 	private Dimension windowSize = new Dimension(800, 600);
 
+
 	private RunSimulation runSimulation;
 	
 	private String backgroundImageFile = "src/main/images/start.png";
@@ -27,6 +32,7 @@ public class StartUpPage extends JFrame {
 
 	public StartUpPage(String title) throws HeadlessException {
 		super(title);
+		
 
 		setPreferredSize(windowSize);
 
@@ -61,6 +67,7 @@ public class StartUpPage extends JFrame {
 		return new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+
 				// Handle the button click event here
 				setVisible(false);
 				configPage.setSize(800, 600);
@@ -101,15 +108,27 @@ public class StartUpPage extends JFrame {
 		return new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+//				ProducerClient p = new ProducerClient();
+//				p.createClient();
+//				String Id = p.getNodeID();
+//		        // Display an alert with a custom message and title
+//		        String message = "Creating Client...\n" + "Channel created successfully!\n"+		
+//		        "S6 node ID: " + Id + "\n"+ "Connection established!";
+//		        
+//		        String title = "Successful Unary Call";
+//		        
+//		        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+//				runSimulation = new RunSimulation();
 				
-		        // Display an alert with a custom message and title
-		        String message = "Creating Client...\n" + "Channel created successfully!\n"+		
-		        "S6 node ID: XXXX_YYYY_ZZZ\n"+ "Connection established!";
-		        
-		        String title = "Successful Unary Call";
-		        
-		        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
-				runSimulation = new RunSimulation();
+//				PngImageMessageProvider client = new PngImageMessageProvider();
+//				client.sendPngImageStream();
+//				client.shutdown();
+				
+//				ConsumerClient client2 = new ConsumerClient();
+//				client2.receivePngImageStream();
+//				client2.shutdown();
+				
+				SimualtionMultiThreadDriver simualtionMultiThreadDriver = new SimualtionMultiThreadDriver();
 			}
 		};
 	}
@@ -118,6 +137,7 @@ public class StartUpPage extends JFrame {
 		new StartUpPage("Performance Benchmarking");
 
 	}
+	
 
 	public void repaintWindow() {
 		getContentPane().repaint();
@@ -125,3 +145,5 @@ public class StartUpPage extends JFrame {
 	}
 
 }
+
+
